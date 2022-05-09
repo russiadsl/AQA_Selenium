@@ -8,10 +8,10 @@ branches:
 
 build: off  # будем использовать свой скрипт сборки
 
-artifacts:
-  - path: artifacts/app-order.jar
-    name: app-order
-
+#artifacts:
+#  - path: artifacts/app-order.jar
+#    name: app-order
+#
 install:
   - chmod +x gradlew
 
@@ -21,4 +21,7 @@ install:
 
 build_script:
   - ./gradlew test --info  # запускаем тест, флаг --info позволяет выводить больше информации
+
+artifacts:
+  - path: app-order.jar
 
