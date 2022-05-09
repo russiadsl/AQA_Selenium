@@ -20,7 +20,7 @@ public class TestOrderApp {
 
     @BeforeAll
     public static void setUp(){
-        System.setProperty("webdriver.chrome.driver" , "driver/chromedriver");
+        System.setProperty("webdriver.chrome.driver" , "driver/chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--no-sandbox");
