@@ -77,4 +77,15 @@ public class TestOrderApp {
         String text = driver.findElement(By.cssSelector("[data-test-id=phone].input_invalid .input__sub")).getText();
         assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.",text);
     }
+
+    @Test
+    public void shouldTestFieldCheckBox(){
+        driver.findElement(By.cssSelector("[type=text]")).sendKeys("Евгений Безуглый");
+        driver.findElement(By.cssSelector("[type=tel]")).sendKeys("+79144131520");
+
+        driver.findElement(By.tagName("button")).click();//Отправить;
+        String colour = driver.findElement(By.cssSelector("[data-test-id=agreement].input_invalid .checkbox__text")).getCssValue("color");
+
+        assertEquals("rgba(255, 92, 92, 1)",colour);
+    }
 }
