@@ -7,12 +7,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestOrderApp {
@@ -23,7 +19,6 @@ public class TestOrderApp {
     static void setUp() {
         WebDriverManager.chromedriver().setup();
     }
-//        System.setProperty("webdriver.chrome.driver" , "driver/chromedriver.exe");
 
     @BeforeEach
     void setUp1(){
@@ -43,9 +38,8 @@ public class TestOrderApp {
 
     @Test
     public void shouldTestCorrectData(){
-        List<WebElement> elements = driver.findElements(By.className("input__control"));
-        elements.get(0).sendKeys("Евгений -Безуглый ");
-        elements.get(1).sendKeys("+79144131520");
+        driver.findElement(By.cssSelector("[type=text]")).sendKeys("Евгений -Безуглый ");
+        driver.findElement(By.cssSelector("[type=tel]")).sendKeys("+79144131520");
 
         driver.findElement(By.className("checkbox__box")).click();
         driver.findElement(By.tagName("button")).click();//Отправить;
@@ -67,6 +61,18 @@ public class TestOrderApp {
     }
 
     @Test
+    public void shouldTestEmptyFieldName(){
+        driver.findElement(By.cssSelector("[type=text]")).sendKeys("");
+        driver.findElement(By.cssSelector("[type=tel]")).sendKeys("+79144131520");
+
+        driver.findElement(By.className("checkbox__box")).click();
+        driver.findElement(By.tagName("button")).click();//Отправить;
+
+        String text = driver.findElement(By.cssSelector("[data-test-id=name].input_invalid .input__sub")).getText();
+        assertEquals("Поле обязательно для заполнения",text);
+    }
+
+    @Test
     public void shouldTestFieldPhone(){
         driver.findElement(By.cssSelector("[type=text]")).sendKeys("Евгений Б");
         driver.findElement(By.cssSelector("[type=tel]")).sendKeys("-9144131520");
@@ -79,7 +85,30 @@ public class TestOrderApp {
     }
 
     @Test
-    public void shouldTestFieldCheckBox(){
+    public void shouldTestEmptyFieldPhone(){
+        driver.findElement(By.cssSelector("[type=text]")).sendKeys("Евгений Б");
+        driver.findElement(By.cssSelector("[type=tel]")).sendKeys("");
+
+        driver.findElement(By.className("checkbox__box")).click();
+        driver.findElement(By.tagName("button")).click();//Отправить;
+
+        String text = driver.findElement(By.cssSelector("[data-test-id=phone].input_invalid .input__sub")).getText();
+        assertEquals("Поле обязательно для заполнения",text);
+    }
+
+    @Test
+    public void shouldTestEmptyFieldCheckboxText(){
+        driver.findElement(By.cssSelector("[type=text]")).sendKeys("Евгений Б");
+        driver.findElement(By.cssSelector("[type=tel]")).sendKeys("");
+
+        driver.findElement(By.tagName("button")).click();//Отправить;
+
+        String text = driver.findElement(By.cssSelector("[data-test-id=agreement].input_invalid .checkbox__text")).getText();
+        assertEquals("Я соглашаюсь с условиями обработки и использования моих персональных данных и разрешаю сделать запрос в бюро кредитных историй",text);
+    }
+
+    @Test
+    public void shouldTestFieldCheckbox(){
         driver.findElement(By.cssSelector("[type=text]")).sendKeys("Евгений Безуглый");
         driver.findElement(By.cssSelector("[type=tel]")).sendKeys("+79144131520");
 
