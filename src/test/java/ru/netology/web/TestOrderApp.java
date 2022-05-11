@@ -99,7 +99,7 @@ public class TestOrderApp {
     @Test
     public void shouldTestEmptyFieldCheckboxText(){
         driver.findElement(By.cssSelector("[type=text]")).sendKeys("Евгений Б");
-        driver.findElement(By.cssSelector("[type=tel]")).sendKeys("");
+        driver.findElement(By.cssSelector("[type=tel]")).sendKeys("+79144131520");
 
         driver.findElement(By.tagName("button")).click();//Отправить;
 
